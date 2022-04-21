@@ -32,7 +32,7 @@ defmodule LmHttpHackney.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:lm_http, "~> 0.2"},
+      {:lm_http, git: "https://github.com/LucidModules/elixir-http", branch: "master"},
       {:hackney, "~> 1.18"},
       {:ex_doc, "~> 0.1", only: :dev},
       {:earmark, ">= 0.0.0", only: :dev},
