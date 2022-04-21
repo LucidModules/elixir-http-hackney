@@ -20,8 +20,16 @@ defmodule LmHttpHackney.ClientAdapter do
       do: {:error, "invalid HTTP method"}
 
   def request(%{method: method, endpoint: url, headers: headers, body: payload}) do
-    result = :hackney.request(method, url, headers, payload)
+    :hackney.request(method, url, headers, {:form, payload})
+    |> handle_result
+  end
 
+  def request(%{method: method, endpoint: url, headers: headers}) do
+    :hackney.request(method, url, headers)
+    |> handle_result
+  end
+
+  defp handle_result(result) do
     case result do
       {:ok, status, headers, ref} ->
         %{status: status, body: process_body(ref), headers: headers}
